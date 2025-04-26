@@ -2,9 +2,9 @@ name: Super-Linter and Docker Build/Push
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   super-linter:
@@ -18,7 +18,7 @@ jobs:
       - name: Run Super-Linter
         uses: github/super-linter@v5
         env:
-          DEFAULT_BRANCH: main
+          DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FILE_EXTENSIONS: .htm,.html,.dockerfile
           DISABLE_LINTERS: MARKDOWN_LINTER,YAML_LINTER
@@ -27,7 +27,7 @@ jobs:
     name: Build and Push Docker Image
     needs: super-linter  # Depends on the linter job
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # Only run on pushes to main
+    if: github.ref == 'refs/heads/master'  # Only run on pushes to master
 
     steps:
       - name: Checkout Code
